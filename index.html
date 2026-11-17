@@ -1,0 +1,1774 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="artifact-type" content="tool">
+  <meta name="design-style" content="handbook">
+  <title>KGMP 및 ISO 13485:2016 규격 교육 효과성 평가</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700;800&family=Public+Sans:wght@400;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      color-scheme: light;
+
+      /* Page and surfaces */
+      --background: #ffffff;
+      --surface-container-low: #f3f2f1;
+      --surface-container: #e8e7e5;
+      --surface-container-high: #dbdad9;
+
+      /* Ink */
+      --on-surface: #0b0c0c;
+      --on-surface-variant: #505a5f;
+
+      /* Rules */
+      --outline: #0b0c0c;
+      --outline-variant: #b1b4b6;
+
+      /* Accents */
+      --primary: #162e51;
+      --on-primary: #ffffff;
+      --primary-container: #d2e2f1;
+      --on-primary-container: #0c2d4a;
+      --secondary: #4c2c92;
+      --tertiary: #1a569e;
+      --error: #d4351c;
+      --on-error: #ffffff;
+
+      /* Data series */
+      --data-1: #1a569e;
+      --data-2: #c75a0a;
+      --data-3: #28a197;
+      --data-4: #4c2c92;
+      --data-context: #b1b4b6;
+
+      /* Fonts (Non-Latin first per design foundation) */
+      --font-headline: 'Noto Sans KR', 'Public Sans', sans-serif;
+      --font-body: 'Noto Sans KR', 'Public Sans', sans-serif;
+      --font-label: 'Noto Sans KR', 'Public Sans', sans-serif;
+
+      /* Shape */
+      --rounded: 0;
+      --rounded-lg: 0;
+      --rounded-full: 0;
+
+      /* Style effects */
+      --top-index-rule: 6px solid var(--primary);
+      --inset-rule: 5px solid var(--tertiary);
+      --inset-rule-error: 5px solid var(--error);
+      --inset-rule-positive: 5px solid var(--positive);
+      --button-ground: 0 2px 0 #091526;
+      --button-ground-secondary: 0 2px 0 #858686;
+      --focus-yellow: #ffdd00;
+      --focus-ring: 3px solid var(--focus-yellow);
+      --focus-bar: inset 0 0 0 2px var(--on-surface);
+      --focus-underline: 0 -2px var(--focus-yellow), 0 4px var(--on-surface);
+
+      /* Shared tokens */
+      --positive: #00703c;
+      --positive-container: #e6f2ec;
+      --warning: #9a5b00;
+      --focus: var(--focus-yellow);
+
+      /* Type scale (Focused Tool) */
+      --display-size: clamp(1.75rem, 1.4rem + 1.2vw, 2.25rem);
+      --headline-size: clamp(1.25rem, 1.1rem + 0.5vw, 1.5rem);
+      --subhead-size: clamp(1.0625rem, 1rem + 0.25vw, 1.1875rem);
+      --body-size: clamp(0.9375rem, 0.9rem + 0.15vw, 1rem);
+      --label-size: 0.75rem;
+
+      /* Spacing scale (4pt base) */
+      --space-xs: 0.25rem;
+      --space-sm: 0.5rem;
+      --space-md: 1rem;
+      --space-lg: 1.5rem;
+      --space-xl: 2.5rem;
+      --space-2xl: 4rem;
+      --space-3xl: 6rem;
+
+      /* Motion */
+      --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+      --ease-in-out: cubic-bezier(0.65, 0, 0.35, 1);
+      --dur-micro: 120ms;
+      --dur-short: 220ms;
+      --dur-long: 420ms;
+    }
+
+    /* Base reset */
+    *, *::before, *::after { box-sizing: border-box; }
+    html, body {
+      overflow-x: clip;
+      margin: 0;
+      padding: 0;
+      background-color: var(--background);
+      color: var(--on-surface);
+      font-family: var(--font-body);
+      font-size: var(--body-size);
+      line-height: 1.6;
+      word-break: keep-all;
+      overflow-wrap: break-word;
+    }
+    header { position: static !important; }
+
+    button, input, select, textarea {
+      font-family: inherit;
+      font-size: inherit;
+      color: inherit;
+    }
+
+    .page-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr);
+      gap: var(--space-xl);
+      padding: var(--space-lg);
+      max-width: 1120px;
+      margin: 0 auto;
+      overflow: hidden;
+    }
+    .page-grid * { min-width: 0; }
+
+    /* Treatment 1: Heavy top index rule */
+    .index-header {
+      border-top: var(--top-index-rule);
+      border-bottom: 1px solid var(--on-surface);
+      padding: var(--space-sm) 0;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      align-items: center;
+      gap: var(--space-sm);
+      font-family: var(--font-label);
+      font-weight: 700;
+      font-size: var(--label-size);
+      letter-spacing: 0;
+      text-transform: none;
+    }
+
+    .status-tag {
+      display: inline-block;
+      background: var(--primary-container);
+      color: var(--on-primary-container);
+      font-family: var(--font-label);
+      font-weight: 700;
+      font-size: var(--label-size);
+      padding: var(--space-xs) var(--space-sm);
+      border-radius: var(--rounded);
+      letter-spacing: 0;
+      text-transform: none;
+    }
+
+    .status-tag--positive {
+      background: var(--positive-container);
+      color: var(--positive);
+    }
+
+    .status-tag--error {
+      background: var(--background);
+      color: var(--error);
+      border: 1px solid var(--error);
+    }
+
+    /* Page title block - flush left */
+    .hero-block {
+      display: grid;
+      gap: var(--space-md);
+      padding-bottom: var(--space-lg);
+      border-bottom: 1px solid var(--outline-variant);
+    }
+
+    h1 {
+      margin: 0;
+      font-family: var(--font-headline);
+      font-size: var(--display-size);
+      font-weight: 800;
+      line-height: 1.15;
+      color: var(--on-surface);
+    }
+
+    h2 {
+      margin: 0;
+      font-family: var(--font-headline);
+      font-size: var(--headline-size);
+      font-weight: 800;
+      line-height: 1.25;
+      color: var(--on-surface);
+    }
+
+    h3 {
+      margin: 0;
+      font-family: var(--font-headline);
+      font-size: var(--subhead-size);
+      font-weight: 700;
+      line-height: 1.35;
+      color: var(--on-surface);
+    }
+
+    .lede {
+      margin: 0;
+      max-width: 68ch;
+      color: var(--on-surface);
+      font-size: var(--subhead-size);
+      line-height: 1.6;
+    }
+
+    .meta-note {
+      margin: 0;
+      color: var(--on-surface-variant);
+      font-size: var(--body-size);
+    }
+
+    /* Treatment 2: Inset blue rule & KPI grid */
+    .summary-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(min(220px, 100%), 1fr));
+      gap: var(--space-md);
+    }
+
+    .inset {
+      border-left: var(--inset-rule);
+      background: var(--surface-container-low);
+      padding: var(--space-md) var(--space-lg);
+      display: grid;
+      gap: var(--space-xs);
+      align-content: start;
+    }
+
+    .inset--positive {
+      border-left: var(--inset-rule-positive);
+    }
+
+    .inset--error {
+      border-left: var(--inset-rule-error);
+      background: var(--background);
+    }
+
+    .kpi-label {
+      font-size: var(--label-size);
+      font-weight: 700;
+      color: var(--on-surface-variant);
+    }
+
+    .kpi-value {
+      font-size: var(--headline-size);
+      font-weight: 800;
+      color: var(--on-surface);
+      font-variant-numeric: tabular-nums;
+      line-height: 1.2;
+    }
+
+    .kpi-desc {
+      font-size: 0.875rem;
+      color: var(--on-surface);
+    }
+
+    /* Trainee info form */
+    .trainee-panel {
+      border-top: 2px solid var(--on-surface);
+      border-bottom: 1px solid var(--outline-variant);
+      padding: var(--space-lg) 0;
+      display: grid;
+      gap: var(--space-md);
+    }
+
+    .trainee-fields {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(min(220px, 100%), 1fr));
+      gap: var(--space-md);
+      align-items: end;
+    }
+
+    .field-group {
+      display: grid;
+      gap: var(--space-xs);
+    }
+
+    .field-label {
+      font-weight: 700;
+      font-size: var(--body-size);
+      color: var(--on-surface);
+    }
+
+    .field-hint {
+      font-size: 0.875rem;
+      color: var(--on-surface-variant);
+    }
+
+    .text-input,
+    .text-area {
+      width: 100%;
+      background: var(--background);
+      border: 2px solid var(--outline);
+      border-radius: var(--rounded);
+      padding: var(--space-sm) var(--space-md);
+      line-height: 1.5;
+      min-height: 44px;
+      transition: background-color var(--dur-micro) var(--ease-in-out), box-shadow var(--dur-micro) var(--ease-in-out);
+    }
+
+    .text-area {
+      min-height: 140px;
+      resize: vertical;
+    }
+
+    .text-input:focus-visible,
+    .text-area:focus-visible {
+      outline: var(--focus-ring);
+      outline-offset: 0;
+      box-shadow: var(--focus-bar);
+    }
+
+    /* Toolbar / Navigation controls */
+    .control-bar {
+      display: flex;
+      flex-wrap: wrap;
+      gap: var(--space-sm);
+      align-items: center;
+      justify-content: space-between;
+      padding: var(--space-md) 0;
+      border-bottom: 1px solid var(--outline-variant);
+    }
+
+    .filter-group {
+      display: flex;
+      flex-wrap: wrap;
+      gap: var(--space-sm);
+      align-items: center;
+    }
+
+    .action-group {
+      display: flex;
+      flex-wrap: wrap;
+      gap: var(--space-sm);
+      align-items: center;
+    }
+
+    /* Treatment 3: Grounded action buttons */
+    .button {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 44px;
+      font-weight: 700;
+      font-size: var(--body-size);
+      line-height: 1.25;
+      background: var(--primary);
+      color: var(--on-primary);
+      border: 0;
+      border-radius: var(--rounded);
+      padding: var(--space-sm) var(--space-lg);
+      box-shadow: var(--button-ground);
+      cursor: pointer;
+      text-decoration: none;
+      transition: background-color var(--dur-micro) var(--ease-in-out), transform var(--dur-micro) var(--ease-out);
+    }
+
+    .button:hover:not(:disabled) {
+      background: var(--on-primary-container);
+    }
+
+    .button--secondary {
+      background: var(--surface-container-low);
+      color: var(--on-surface);
+      box-shadow: var(--button-ground-secondary);
+      border: 1px solid var(--outline-variant);
+    }
+
+    .button--secondary:hover:not(:disabled) {
+      background: var(--surface-container);
+    }
+
+    .button--secondary[aria-pressed="true"] {
+      background: var(--on-surface);
+      color: var(--background);
+      border-color: var(--on-surface);
+      box-shadow: none;
+    }
+
+    .button:active:not(:disabled) {
+      transform: translateY(2px);
+      box-shadow: none;
+    }
+
+    .button:disabled {
+      opacity: 0.55;
+      cursor: not-allowed;
+    }
+
+    /* Treatment 4: Yellow focus */
+    .button:focus-visible,
+    .option-label:focus-within,
+    .check-label:focus-within {
+      outline: var(--focus-ring);
+      outline-offset: 0;
+      box-shadow: var(--focus-bar);
+    }
+
+    /* Section headers */
+    .section-block {
+      display: grid;
+      gap: var(--space-lg);
+      padding-top: var(--space-md);
+    }
+
+    .section-head {
+      display: grid;
+      gap: var(--space-xs);
+      border-bottom: 2px solid var(--on-surface);
+      padding-bottom: var(--space-sm);
+    }
+
+    .section-head-row {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      align-items: baseline;
+      gap: var(--space-sm);
+    }
+
+    /* Question item */
+    .question-card {
+      display: grid;
+      gap: var(--space-md);
+      padding: var(--space-lg) 0;
+      border-bottom: 1px solid var(--outline-variant);
+    }
+
+    .question-header {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: var(--space-sm);
+    }
+
+    .step-badge {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-width: 32px;
+      height: 32px;
+      padding: 0 var(--space-sm);
+      background: var(--primary);
+      color: var(--on-primary);
+      font-weight: 800;
+      font-size: 0.875rem;
+      font-variant-numeric: tabular-nums;
+      flex-shrink: 0;
+    }
+
+    .question-stem {
+      margin: 0;
+      font-size: var(--subhead-size);
+      font-weight: 700;
+      line-height: 1.5;
+      max-width: 72ch;
+    }
+
+    /* Multiple choice options */
+    .options-list {
+      display: grid;
+      gap: var(--space-sm);
+      margin: 0;
+      padding: 0;
+      list-style: none;
+    }
+
+    .option-label {
+      display: flex;
+      align-items: flex-start;
+      gap: var(--space-md);
+      min-height: 44px;
+      padding: var(--space-sm) var(--space-md);
+      background: var(--background);
+      border: 2px solid var(--outline-variant);
+      cursor: pointer;
+      transition: background-color var(--dur-micro) var(--ease-in-out);
+    }
+
+    .option-label:hover {
+      background: var(--surface-container-low);
+      border-color: var(--on-surface);
+    }
+
+    .option-label.is-selected {
+      background: var(--primary-container);
+      border-color: var(--primary);
+    }
+
+    .option-label.is-correct {
+      background: var(--positive-container);
+      border-color: var(--positive);
+    }
+
+    .option-label.is-wrong {
+      background: var(--background);
+      border-color: var(--error);
+      border-left-width: 5px;
+    }
+
+    .option-radio {
+      margin-top: 4px;
+      width: 20px;
+      height: 20px;
+      flex-shrink: 0;
+      accent-color: var(--primary);
+      cursor: pointer;
+    }
+
+    .option-text {
+      flex: 1;
+      line-height: 1.5;
+    }
+
+    .option-num {
+      font-weight: 700;
+      margin-right: var(--space-xs);
+    }
+
+    .explanation-box {
+      border-left: var(--inset-rule);
+      background: var(--surface-container-low);
+      padding: var(--space-md) var(--space-lg);
+      display: grid;
+      gap: var(--space-xs);
+    }
+
+    .explanation-box--correct {
+      border-left: var(--inset-rule-positive);
+    }
+
+    .explanation-box--wrong {
+      border-left: var(--inset-rule-error);
+    }
+
+    .explanation-title {
+      font-weight: 800;
+      font-size: var(--body-size);
+    }
+
+    .explanation-title--correct {
+      color: var(--positive);
+    }
+
+    .explanation-title--wrong {
+      color: var(--error);
+    }
+
+    /* Subjective comparison container */
+    .essay-wrapper {
+      container-type: inline-size;
+      display: grid;
+      gap: var(--space-md);
+    }
+
+    .essay-controls {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: var(--space-sm);
+    }
+
+    .compare-grid {
+      display: grid;
+      gap: var(--space-md);
+      grid-template-columns: minmax(0, 1fr);
+    }
+
+    @container (min-width: 680px) {
+      .compare-grid {
+        grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+      }
+    }
+
+    .compare-panel {
+      background: var(--surface-container-low);
+      border-left: var(--inset-rule);
+      padding: var(--space-md) var(--space-lg);
+      display: grid;
+      gap: var(--space-sm);
+      align-content: start;
+    }
+
+    .compare-panel--user {
+      background: var(--background);
+      border: 1px solid var(--outline-variant);
+      border-left: 5px solid var(--on-surface);
+    }
+
+    .compare-panel h4 {
+      margin: 0;
+      font-size: var(--body-size);
+      font-weight: 800;
+      color: var(--on-surface);
+    }
+
+    .compare-user-text {
+      margin: 0;
+      white-space: pre-wrap;
+      line-height: 1.6;
+      color: var(--on-surface);
+    }
+
+    .model-answer-list {
+      margin: 0;
+      padding-left: var(--space-lg);
+      display: grid;
+      gap: var(--space-xs);
+    }
+
+    .checkpoint-box {
+      border-top: 1px solid var(--outline-variant);
+      padding-top: var(--space-md);
+      display: grid;
+      gap: var(--space-sm);
+    }
+
+    .check-label {
+      display: flex;
+      align-items: flex-start;
+      gap: var(--space-sm);
+      min-height: 44px;
+      padding: var(--space-sm);
+      background: var(--background);
+      border: 1px solid var(--outline-variant);
+      cursor: pointer;
+    }
+
+    .check-input {
+      margin-top: 3px;
+      width: 20px;
+      height: 20px;
+      flex-shrink: 0;
+      accent-color: var(--primary);
+      cursor: pointer;
+    }
+
+    /* Breakdown table */
+    .table-wrap {
+      overflow-x: auto;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      font-variant-numeric: tabular-nums;
+    }
+
+    th, td {
+      padding: var(--space-sm) var(--space-md);
+      border-bottom: 1px solid var(--outline-variant);
+      text-align: left;
+    }
+
+    th {
+      font-weight: 700;
+      border-bottom: 2px solid var(--on-surface);
+      color: var(--on-surface);
+    }
+
+    td.num, th.num {
+      text-align: right;
+    }
+
+    /* Inline message & bottom bar */
+    .inline-notice {
+      border-left: var(--inset-rule);
+      background: var(--surface-container-low);
+      padding: var(--space-md) var(--space-lg);
+      font-weight: 600;
+    }
+
+    .inline-notice--error {
+      border-left: var(--inset-rule-error);
+      background: var(--background);
+      color: var(--error);
+    }
+
+    .inline-notice--positive {
+      border-left: var(--inset-rule-positive);
+      background: var(--positive-container);
+      color: var(--positive);
+    }
+
+    .footer-note {
+      border-top: 2px solid var(--on-surface);
+      padding-top: var(--space-md);
+      padding-bottom: var(--space-xl);
+      color: var(--on-surface-variant);
+      font-size: 0.875rem;
+      display: grid;
+      gap: var(--space-xs);
+    }
+
+    .is-hidden {
+      display: none !important;
+    }
+
+    @media (max-width: 640px) {
+      .page-grid {
+        padding: var(--space-md);
+        gap: var(--space-lg);
+      }
+      .control-bar {
+        flex-direction: column;
+        align-items: stretch;
+      }
+      .filter-group,
+      .action-group {
+        width: 100%;
+      }
+      .button {
+        width: 100%;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        animation-duration: 0.01ms !important;
+        transition-duration: 0.01ms !important;
+        scroll-behavior: auto !important;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="page-grid">
+    <header class="index-header">
+      <span>의료기기 품질경영시스템 교육 효과성 평가</span>
+      <span class="status-tag">ISO 13485:2016 · 식약처고시 제2025-22호</span>
+    </header>
+
+    <section class="hero-block" aria-labelledby="page-title">
+      <h1 id="page-title">KGMP 및 ISO 13485:2016 규격 이해도 평가</h1>
+      <p class="lede">
+        본 평가는 ISO 13485:2016(의료기기 품질경영시스템)과 「의료기기 제조 및 품질관리 기준(식품의약품안전처고시 제2025-22호)」 교육 수료자의 실무 적용 능력과 규격 핵심 요구사항 이해도를 검증하기 위해 설계되었습니다.
+      </p>
+      <p class="meta-note">
+        구성: 객관식 10문항(문항당 10점, 자동 채점 및 조항별 해설) + 주관식 5문항(답안 작성, 모범 답안 비교 및 핵심 포인트 자가점검). 작성 중인 모든 답안과 평가 결과는 자동 저장됩니다.
+      </p>
+    </section>
+
+    <section class="trainee-panel" aria-label="응시자 정보">
+      <h2>응시자 정보 입력</h2>
+      <div class="trainee-fields">
+        <div class="field-group">
+          <label class="field-label" for="trainee-name">성명</label>
+          <input class="text-input" id="trainee-name" type="text" oninput="handleTraineeChange()" placeholder="예: 홍길동">
+        </div>
+        <div class="field-group">
+          <label class="field-label" for="trainee-dept">소속 / 부서</label>
+          <input class="text-input" id="trainee-dept" type="text" oninput="handleTraineeChange()" placeholder="예: 품질보증팀(QA)">
+        </div>
+        <div class="field-group">
+          <label class="field-label" for="trainee-date">평가 일자</label>
+          <input class="text-input" id="trainee-date" type="date" oninput="handleTraineeChange()">
+        </div>
+      </div>
+    </section>
+
+    <section aria-label="평가 현황 요약">
+      <div class="summary-grid" id="summary-grid">
+        <div class="inset">
+          <span class="kpi-label">전체 문항 진행률</span>
+          <span class="kpi-value" id="kpi-progress">0 / 15</span>
+          <span class="kpi-desc" id="kpi-progress-detail">객관식 0/10 · 주관식 0/5 작성</span>
+        </div>
+        <div class="inset" id="kpi-score-card">
+          <span class="kpi-label">객관식 평가 점수</span>
+          <span class="kpi-value" id="kpi-mc-score">미채점</span>
+          <span class="kpi-desc" id="kpi-mc-detail">10문항 선택 후 자동 채점을 실행하세요.</span>
+        </div>
+        <div class="inset">
+          <span class="kpi-label">주관식 핵심 포인트 자가점검</span>
+          <span class="kpi-value" id="kpi-essay-check">0 / 15</span>
+          <span class="kpi-desc" id="kpi-essay-detail">모범 답안 비교 후 충족 항목을 체크하세요.</span>
+        </div>
+      </div>
+    </section>
+
+    <section aria-label="평가 제어 및 필터">
+      <div class="control-bar">
+        <div class="filter-group" role="group" aria-label="문항 영역 필터">
+          <button type="button" class="button button--secondary" id="filter-all" aria-pressed="true" onclick="setFilter('all')">전체 문항 (15)</button>
+          <button type="button" class="button button--secondary" id="filter-mc" aria-pressed="false" onclick="setFilter('mc')">객관식 (10)</button>
+          <button type="button" class="button button--secondary" id="filter-essay" aria-pressed="false" onclick="setFilter('essay')">주관식 (5)</button>
+          <button type="button" class="button button--secondary" id="filter-wrong" aria-pressed="false" onclick="setFilter('wrong')">오답만 보기</button>
+        </div>
+        <div class="action-group">
+          <button type="button" class="button" id="btn-grade" onclick="gradeObjectiveSection()">객관식 자동 채점 실행</button>
+          <button type="button" class="button button--secondary" id="btn-export" onclick="exportReport()">결과 리포트 저장(.txt)</button>
+          <button type="button" class="button button--secondary" id="btn-reset" onclick="resetAssessment(this)">평가 초기화</button>
+        </div>
+      </div>
+      <div id="status-banner" class="inline-notice is-hidden" role="status" aria-live="polite"></div>
+    </section>
+
+    <!-- Domain Breakdown (shown after grading) -->
+    <section id="breakdown-section" class="section-block is-hidden" aria-labelledby="breakdown-heading">
+      <div class="section-head">
+        <h2 id="breakdown-heading">객관식 규격 영역별 성취도 분석</h2>
+      </div>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>규격 및 평가 영역</th>
+              <th class="num">출제 문항</th>
+              <th class="num">정답 수</th>
+              <th class="num">정답률</th>
+              <th>수준 판정</th>
+            </tr>
+          </thead>
+          <tbody id="breakdown-tbody"></tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- Part 1: Objective Questions -->
+    <section id="mc-section" class="section-block" aria-labelledby="mc-heading">
+      <div class="section-head">
+        <div class="section-head-row">
+          <h2 id="mc-heading">제1부. 객관식 평가 (10문항 · 자동 채점)</h2>
+          <span class="status-tag" id="mc-section-status">응답 완료: 0 / 10</span>
+        </div>
+        <p class="meta-note">각 문항의 가장 적절한 보기 하나를 선택한 뒤, 상단 또는 하단의 ‘객관식 자동 채점 실행’ 버튼을 눌러 정오답 및 상세 해설을 확인하십시오.</p>
+      </div>
+      <div id="mc-list"></div>
+    </section>
+
+    <!-- Part 2: Subjective Questions -->
+    <section id="essay-section" class="section-block" aria-labelledby="essay-heading">
+      <div class="section-head">
+        <div class="section-head-row">
+          <h2 id="essay-heading">제2부. 주관식 평가 (5문항 · 모범 답안 비교)</h2>
+          <span class="status-tag" id="essay-section-status">작성 완료: 0 / 5</span>
+        </div>
+        <p class="meta-note">규격 조항과 고시 조문을 근거로 답안을 작성한 후, ‘모범 답안 비교하기’를 열어 핵심 채점 포인트를 직접 대조·점검하십시오.</p>
+      </div>
+      <div id="essay-list"></div>
+    </section>
+
+    <footer class="footer-note">
+      <div><strong>근거 규격 및 법령:</strong> ISO 13485:2016 (Medical devices — Quality management systems — Requirements for regulatory purposes) · 식품의약품안전처고시 제2025-22호 「의료기기 제조 및 품질관리 기준」(2025. 4. 7. 시행)</div>
+      <div>본 평가 도구의 권고 합격 기준은 객관식 80점 이상(10문항 중 8문항 이상 정답) 및 주관식 핵심 포인트 80% 이상 충족입니다.</div>
+    </footer>
+  </div>
+
+  <api-shim></api-shim>
+  <script>
+    const MC_QUESTIONS = [
+      {
+        id: `mc1`,
+        num: 1,
+        domain: `ISO 13485:2016`,
+        clause: `0.2 개념의 명료화 · 3.17 위험`,
+        stem: `ISO 13485:2016의 0.2항(개념의 명료화) 및 3.17항(용어 및 정의)에 따른 '위험(risk)'과 '해당되는 경우(as appropriate)'의 해석으로 가장 옳은 것은?`,
+        options: [
+          `위험은 조직의 재무적 손실과 생산 일정 지연 가능성만을 포괄하는 개념으로 정의된다.`,
+          `위험은 위해의 발생 가능성과 그 위해의 심각성의 조합을 의미하며, 이 규격에서는 의료기기의 안전성·성능 요구사항 또는 적용되는 규제 요구사항 충족과 관련된다.`,
+          `'해당되는 경우(as appropriate)'로 한정된 요구사항은 조직이 자발적으로 필요성을 입증할 때만 선택적으로 적용한다.`,
+          `이 규격의 '위험' 정의는 ISO 9000:2015의 정의와 완전히 동일하며 기회(긍정적 불확실성)까지 포함한다.`
+        ],
+        answerIndex: 1,
+        explanation: `ISO 13485:2016 3.17항은 위험(risk)을 '위해의 발생 가능성과 그 위해의 심각성의 조합(ISO 14971:2007, 2.16)'으로 정의하며, ISO 9000:2015의 정의와 다름을 명시합니다. 0.2항에 따라 규격 내 위험은 의료기기의 안전성·성능 또는 규제 요구사항 충족과 관련되며, '해당되는 경우(as appropriate)'는 조직이 달리 정당한 근거를 제시하지 않는 한 해당되는 것으로 간주됩니다.`
+      },
+      {
+        id: `mc2`,
+        num: 2,
+        domain: `ISO 13485:2016`,
+        clause: `4.1.6 · 7.5.6 · 7.6 소프트웨어 유효성 확인`,
+        stem: `ISO 13485:2016에서 요구하는 컴퓨터 소프트웨어의 유효성 확인(Validation)에 관한 설명으로 옳지 않은 것은?`,
+        options: [
+          `품질경영시스템(4.1.6), 생산 및 서비스 제공(7.5.6), 모니터링 및 측정(7.6)에 사용되는 컴퓨터 소프트웨어 모두 유효성 확인 절차를 문서화해야 한다.`,
+          `소프트웨어 애플리케이션은 최초 사용 전에 유효성이 확인되어야 하며, 해당되는 경우 소프트웨어 변경 또는 적용 후에도 유효성이 확인되어야 한다.`,
+          `소프트웨어 유효성 확인 및 재확인에 관한 구체적 접근방법과 활동들은 소프트웨어 사용과 관련된 위험에 비례하여야 한다.`,
+          `최초 사용 전 유효성 확인을 완료한 소프트웨어는 이후 적용 방식이나 소프트웨어가 변경되더라도 재확인 없이 변경 이력만 기록하면 된다.`
+        ],
+        answerIndex: 3,
+        explanation: `ISO 13485:2016 4.1.6항, 7.5.6항, 7.6항은 공통적으로 컴퓨터 소프트웨어 적용이 최초 사용 전뿐만 아니라 '해당되는 경우 그러한 소프트웨어의 변경 또는 적용 후에도' 유효성이 확인되어야 한다고 규정합니다. 유효성 확인 및 재확인 활동은 소프트웨어 사용과 관련된 위험에 비례하여 수행하고 기록을 유지해야 합니다.`
+      },
+      {
+        id: `mc3`,
+        num: 3,
+        domain: `ISO 13485:2016`,
+        clause: `4.2.4 문서관리 · 4.2.5 기록관리`,
+        stem: `ISO 13485:2016 4.2.4항(문서관리) 및 4.2.5항(기록관리)에 따른 효력 상실 문서 사본과 품질기록의 최소 보관 기간 기준으로 옳은 것은?`,
+        options: [
+          `효력 상실 문서는 개정 즉시 전량 폐기하며, 품질기록은 출고일로부터 최소 1년간 보관한다.`,
+          `품질기록은 조직이 정하거나 규제 요구사항이 규정한 의료기기의 수명 동안 보관하되, 최소한 조직이 의료기기를 출고한 날로부터 2년 이상 보관하여야 한다.`,
+          `효력 상실 문서 사본은 제조일로부터 1년만 보관하면 되며, 결과 기록의 보관 기간과는 무관하다.`,
+          `기록에 포함된 기밀건강정보는 보관 대상에서 제외되므로 출고 후 6개월 이내에 즉시 파기하여야 한다.`
+        ],
+        answerIndex: 1,
+        explanation: `ISO 13485:2016 4.2.5항에 따라 조직은 적어도 조직이 정하거나 적용되는 규제 요구사항이 규정한 의료기기의 수명 동안 기록을 보관하여야 하며, 적어도 조직이 의료기기를 출고한 날로부터 2년 이상 보관해야 합니다. 또한 4.2.4항에 따라 효력 상실 문서 최소 1부 사본도 의료기기 수명 기간 동안 보관하되 결과 기록(4.2.5) 또는 규제 요구사항이 정한 기간 이상 가용하도록 해야 합니다.`
+      },
+      {
+        id: `mc4`,
+        num: 4,
+        domain: `ISO 13485:2016`,
+        clause: `7.3.6 검증 · 7.3.7 유효성 확인`,
+        stem: `ISO 13485:2016 7.3항(설계 및 개발)에 따른 설계 검증(7.3.6) 및 유효성 확인(7.3.7)에 관한 설명으로 가장 옳은 것은?`,
+        options: [
+          `설계 유효성 확인은 반드시 초기 시제품(프로토타입)으로만 수행하며 최초 생산 단위는 대표 제품으로 사용할 수 없다.`,
+          `임상평가나 성능평가를 위해 사용된 의료기기는 고객에게 판매를 위해 출고된 것으로 간주한다.`,
+          `설계 유효성 확인은 대표성을 가지는 제품(최초 생산 단위, 배치 또는 동등품)에 대해 수행하며, 고객에게 사용을 위해 출고하기 전에 완료되어야 한다.`,
+          `설계 검증 계획서에는 방법과 합격 기준만 기재하며, 통계 기법이나 샘플 크기 근거는 포함할 필요가 없다.`
+        ],
+        answerIndex: 2,
+        explanation: `ISO 13485:2016 7.3.7항에 따르면 설계 유효성 확인은 최초 생산 단위·배치 또는 그와 동등한 대표 제품에 대해 수행하고 선택 근거를 기록해야 하며, 고객에게 사용을 위해 출고하기 전에 완료되어야 합니다. 임상평가 또는 성능평가에 사용된 의료기기는 판매를 위해 고객에게 출고된 것으로 간주하지 않습니다. 또한 7.3.6 및 7.3.7 모두 해당되는 경우 샘플 크기에 대한 근거와 함께 통계 기법을 계획서에 문서화하도록 요구합니다.`
+      },
+      {
+        id: `mc5`,
+        num: 5,
+        domain: `ISO 13485:2016`,
+        clause: `3.6 · 7.5.9.2 · 8.2.6 이식용 의료기기`,
+        stem: `ISO 13485:2016에서 '이식용 의료기기'에 대해 특별히 규정하고 있는 요구사항으로 옳지 않은 것은?`,
+        options: [
+          `인체나 천공에 삽입되거나 상피·안구 표면을 대체하여 시술 후 최소 30일간 남아 있는 기기(능동 이식용 의료기기 포함)를 말한다.`,
+          `추적성 기록에는 안전 및 성능 요구사항 부적합을 유발할 수 있는 부품, 원자재 및 작업환경 조건의 기록을 포함시켜야 한다.`,
+          `출고된 제품 인수자의 성명과 주소 기록을 유지해야 하며, 유통업자 또는 유통 서비스 공급자도 추적 가능한 유통 기록을 유지하도록 요구해야 한다.`,
+          `이식용 의료기기의 경우 시험검사를 수행하는 인원의 식별 기록은 생략하고 제품 출고 승인자만 기록하면 된다.`
+        ],
+        answerIndex: 3,
+        explanation: `ISO 13485:2016 8.2.6항에 따르면 일반 의료기기는 제품 출고를 승인한 인원의 표시가 요구되지만, '이식용 의료기기의 경우, 조직은 모든 시험검사를 수행하는 인원을 식별하고 기록하여야 한다'고 명확히 규정하고 있습니다. 따라서 시험검사 수행 인원 기록을 생략할 수 없습니다.`
+      },
+      {
+        id: `mc6`,
+        num: 6,
+        domain: `ISO 13485:2016`,
+        clause: `8.2.2 불만처리 · 8.3 부적합 제품`,
+        stem: `ISO 13485:2016 8.2.2항(불만처리) 및 8.3항(부적합 제품의 관리)에 대한 설명으로 가장 옳은 것은?`,
+        options: [
+          `불만 조사 결과 조직이 조사를 실행하지 않기로 결정한 경우에도 그 정당성을 문서화할 필요는 없다.`,
+          `인도 전 확인된 부적합 제품을 특채(concession)로 수락하려면 정당성 제공, 승인 획득, 규제 요구사항 충족이 필수이며 특채 승인자를 식별하여 기록해야 한다.`,
+          `인도 후 확인된 부적합 제품에 대한 권고문(advisory notice) 발행 절차는 필요 발생 시 사후에 문서화하여 적용한다.`,
+          `불만 조사 결과 조직 외부의 활동이 원인인 경우, 보안 유지를 위해 외부 관계자와 관련 정보를 교환해서는 안 된다.`
+        ],
+        answerIndex: 1,
+        explanation: `ISO 13485:2016 8.3.2항에 따라 부적합 제품의 특채 허용은 정당성 제공, 승인 획득, 적용 규제 요구사항 충족 시에만 가능하며 특채 승인자 식별 기록을 유지해야 합니다. 8.2.2항은 불만 미조사 시 정당성 문서화 및 외부 활동 기여 시 외부 관계자와의 정보 교환을 요구하며, 8.3.3항은 권고문 발행 절차가 '언제든지 실행이 가능하여야 한다'고 규정합니다.`
+      },
+      {
+        id: `mc7`,
+        num: 7,
+        domain: `KGMP 제2025-22호`,
+        clause: `제4조 적합성인정등 심사 구분`,
+        stem: `「의료기기 제조 및 품질관리 기준(식약처고시 제2025-22호)」 제4조에 따른 적합성인정등 심사의 구분 및 정기심사 규정에 관한 설명으로 옳지 않은 것은?`,
+        options: [
+          `적합성인정은 최초심사, 추가심사(다른 품목군 추가), 변경심사(제조소 소재지 변경)로 구분된다.`,
+          `제품의 품질과 관계가 적은 보관소·시험실의 소재지 변경은 변경심사 대상에서 제외된다.`,
+          `제조소는 별표 3의 품목군별로 3년마다 1회의 정기심사를 받아야 한다.`,
+          `2등급 의료기기를 제조하는 제조소 중 최근 3년간 생산실적이 없는 품목군은 정기심사를 받지 아니할 수 있다.`
+        ],
+        answerIndex: 3,
+        explanation: `식약처고시 제2025-22호 제4조 제3항에 따라 정기심사를 받지 아니할 수 있는 대상은 ① 수출용 의료기기, ② 1등급 의료기기, ③ 임상시험용 의료기기, ④ 융복합 의료기기에 조합되거나 복합 구성된 의약품 또는 의약외품에 한합니다. 2등급 의료기기는 생산실적 여부와 관계없이 정기심사 면제 대상에 해당하지 않습니다.`
+      },
+      {
+        id: `mc8`,
+        num: 8,
+        domain: `KGMP 제2025-22호`,
+        clause: `제6조 적합성인정등 심사 방법`,
+        stem: `「의료기기 제조 및 품질관리 기준(식약처고시 제2025-22호)」 제6조 제2항 및 제3항에 따라 서류검토 대상 사유에 해당하더라도 반드시 '현장조사'를 실시하여야 하는 경우가 아닌 것은?`,
+        options: [
+          `위해우려제조소로 판단되는 경우`,
+          `제조·수입업자가 기업비밀 등의 사유로 제7조 제1항 제2호의 자료를 제출할 수 없어 현장조사를 요청하는 경우`,
+          `MDSAP 적합인정서를 보유한 제조소로서 융복합 의료기기 제조소이거나 인체유래성분·조직을 사용한 의료기기 제조소인 경우`,
+          `기존 적합인정을 받은 제조소에서 다른 품목군의 의료기기를 추가하기 위해 추가심사를 신청한 일반 제조소인 경우`
+        ],
+        answerIndex: 3,
+        explanation: `고시 제6조 제2항 제1호에 따라 추가심사는 원칙적으로 서류검토만 실시합니다. 반면 제6조 제3항에 따라 ① 위해우려제조소, ② 기업비밀 등으로 자료 제출이 불가능하여 현장조사를 요청한 경우, ③ MDSAP 적합인정서 보유 제조소 중 정기심사 대상, 중대한 부적합 등 국민건강 영향 인정 제조소, 융복합 의료기기 제조소, 인체유래성분·조직 사용 의료기기 제조소는 현장조사를 실시해야 합니다.`
+      },
+      {
+        id: `mc9`,
+        num: 9,
+        domain: `KGMP 제2025-22호`,
+        clause: `제7조 심사 신청 · 제8조 심사 절차`,
+        stem: `「의료기기 제조 및 품질관리 기준(식약처고시 제2025-22호)」 제7조 및 제8조에 따른 정기심사 신청 및 심사 처리 기한 기준으로 옳은 것은?`,
+        options: [
+          `정기심사는 적합인정서 유효기간 만료일 1개월 전까지 신청하고, 현장조사 희망일은 조사 시작일 10일 이전으로 확정한다.`,
+          `정기심사는 적합인정서 유효기간 만료일로부터 3개월 전까지 신청하며, 현장조사 희망일은 유효기간 만료일(또는 조사 시작일) 20일 이전으로 확정하여 신청하여야 한다.`,
+          `품질관리심사기관의 장은 신청서 접수일로부터 60일 이내에 심사결과를 통보하며, 현장조사 시작일까지의 대기기간도 처리기한에 모두 산입한다.`,
+          `심사 결과 시정조치 조건부(별표 2 9.4 제2호 가목 2))에 해당하는 경우 신청인은 심사 종료일로부터 30일 이내에 시정자료 및 계획서를 제출해야 한다.`
+        ],
+        answerIndex: 1,
+        explanation: `고시 제7조 제3항에 따라 정기심사는 적합인정서 유효기간 만료일로부터 3개월 전까지 신청해야 하며, 현장조사 희망일은 만료일(또는 조사 시작일) 20일 이전으로 확정해야 합니다. 제8조에 따라 심사 결과 통보는 접수일로부터 30일 이내(현장조사 통보일부터 시작일까지는 산입하지 않음)이며, 시정자료 및 계획서 제출 기한은 심사 종료일로부터 15일 이내입니다.`
+      },
+      {
+        id: `mc10`,
+        num: 10,
+        domain: `KGMP 제2025-22호`,
+        clause: `제9조 적합인정서 유효기간`,
+        stem: `「의료기기 제조 및 품질관리 기준(식약처고시 제2025-22호)」 제9조(적합인정서 유효기간)에 관한 설명으로 옳지 않은 것은?`,
+        options: [
+          `최초심사에 따른 적합인정서의 유효기간은 적합인정서 발행일로부터 3년으로 한다.`,
+          `추가심사 및 변경심사에 따른 적합성인정을 받은 경우에도 기존의 유효기간에는 영향을 미치지 않는다.`,
+          `정기심사를 일괄신청하여 적합인정서를 발급받는 경우에도 기존 적합인정서의 유효기간 만료일 다음날부터 3년으로 산정한다.`,
+          `의료기기공동심사프로그램(MDSAP)을 활용하여 심사를 받은 경우 해당 제조소에 대한 MDSAP 적합인정서의 유효기간과 동일하게 산정한다.`
+        ],
+        answerIndex: 2,
+        explanation: `고시 제9조 제3항에 따라 정기심사 적합인정서 유효기간은 원칙적으로 '기존 적합인정서의 유효기간 만료일 다음날부터 3년'이지만, '적합인정서 발행일이 기존 유효기간 만료일보다 경과하거나 정기심사를 일괄신청한 경우에는 적합인정서 발행일부터 3년'으로 산정합니다.`
+      }
+    ];
+
+    const ESSAY_QUESTIONS = [
+      {
+        id: `es1`,
+        num: 1,
+        domain: `ISO 13485:2016`,
+        clause: `4.1.5 외주 프로세스 · 7.4 구매`,
+        stem: `조직이 제품 적합성에 영향을 미치는 프로세스를 외부에 위탁(아웃소싱)하거나 공급자로부터 제품·서비스를 구매할 때, ISO 13485:2016 4.1.5항 및 7.4항(7.4.1~7.4.3)에 따라 이행해야 할 핵심 관리 요구사항을 3가지 이상 서술하시오.`,
+        modelPoints: [
+          `외주 프로세스 책임 유지 및 위험 비례 관리(4.1.5): 외부에 위탁한 프로세스라도 규격·고객·규제 요구사항 준수 책임은 조직이 유지하며, 연관된 위험과 7.4항 충족 능력에 비례하여 모니터링하고 관리해야 합니다.`,
+          `서면 품질합의서 및 변경 사전 통보 합의(4.1.5, 7.4.2): 외주 관리에는 서면 품질합의서(written quality agreements)가 포함되어야 하며, 구매 정보에는 공급자가 요구사항 충족 능력에 영향을 미치는 변경 실행 전 조직에 사전 통보한다는 서면 합의서를 포함해야 합니다.`,
+          `공급자 평가·선정·모니터링·재평가 및 구매품 검증(7.4.1, 7.4.3): 공급자 능력·성과·제품 영향·위험에 비례한 평가·선정 기준 수립 및 성과 모니터링 결과를 재평가에 반영하고, 구매품 검증 범위 역시 평가 결과와 위험에 비례하여 실행·기록(4.2.5)해야 합니다.`
+        ],
+        checkpoints: [
+          `외주 시에도 적합성 책임은 조직에 귀속되며 위험에 비례해 관리함을 언급함`,
+          `서면 품질합의서 및 공급자의 변경 전 사전 통보 합의 의무를 서술함`,
+          `공급자 평가·선정·모니터링·재평가 및 구매품 검증(위험 비례) 절차를 포함함`
+        ]
+      },
+      {
+        id: `es2`,
+        num: 2,
+        domain: `ISO 13485:2016`,
+        clause: `4.2.3 의료기기 파일 · 7.3.10 설계 및 개발 파일`,
+        stem: `ISO 13485:2016 4.2.3항에서 요구하는 '의료기기 파일(Medical device file)'의 수립 목적과 필수 포함 내용을 설명하고, 7.3.10항의 '설계 및 개발 파일'과 어떤 점에서 구분되는지 서술하시오.`,
+        modelPoints: [
+          `의료기기 파일 수립 목적(4.2.3): 각 의료기기 품목 또는 품목군별로 ISO 13485 요구사항 및 적용되는 규제 요구사항 준수를 입증하기 위해 생성된 문서를 포함하거나 참조하는 파일을 수립·유지합니다.`,
+          `필수 포함 내용 6가지: ① 의료기기 일반 설명, 사용용도/목적 및 표시·기재사항(사용지침 포함), ② 제품 사양, ③ 제조·포장·보관·취급·유통 사양 또는 절차, ④ 측정·모니터링 절차, ⑤ (해당 시) 설치 요구사항, ⑥ (해당 시) 서비스 절차.`,
+          `설계 및 개발 파일(7.3.10)과의 차이: 설계 및 개발 파일은 설계·개발 요구사항 적합성 입증 기록과 설계·개발 변경 기록의 유지에 초점을 두는 반면, 의료기기 파일은 생산·포장·유통·라벨링·설치·서비스 등 제품 전 주기의 사양 및 절차 문서를 포괄합니다.`
+        ],
+        checkpoints: [
+          `의료기기 파일의 목적(품목·품목군별 규격 및 규제 요구사항 준수 입증)을 명시함`,
+          `일반 설명·라벨링, 제품 사양, 제조/포장/보관/유통 절차, 측정·모니터링 등 핵심 항목을 열거함`,
+          `설계 및 개발 파일(7.3.10: 설계·개발 적합성 및 변경 기록 중심)과의 차이를 설명함`
+        ]
+      },
+      {
+        id: `es3`,
+        num: 3,
+        domain: `ISO 13485:2016`,
+        clause: `7.5.6 공정 유효성 확인 · 7.5.7 멸균공정`,
+        stem: `ISO 13485:2016 7.5.6항에 따라 생산 및 서비스 제공 프로세스의 유효성 확인(Process Validation)이 반드시 요구되는 조건을 설명하고, 멸균 및 멸균포장 공정(7.5.7)을 포함한 유효성 확인 절차에 포함되어야 할 핵심 요소를 서술하시오.`,
+        modelPoints: [
+          `유효성 확인 필수 대상(7.5.6): 결과 출력이 후속 모니터링이나 측정에 의해 검증될 수 없거나 검증되지 않아, 결과적으로 제품 사용 또는 서비스 인도 후에만 불일치가 나타나는 모든 생산·서비스 제공 프로세스입니다.`,
+          `문서화된 절차의 7대 핵심 요소: ① 프로세스 검토·승인 기준, ② 장비 적격성 및 인원 자격인정, ③ 특정 방법·절차·합격 기준, ④ (해당 시) 샘플 크기 근거 포함 통계적 기법, ⑤ 기록 요구사항(4.2.5), ⑥ 재확인 기준 포함 유효성 재확인, ⑦ 프로세스 변경 승인.`,
+          `멸균 및 멸균포장 공정 특별 요구(7.5.7): 실행 전 및 해당 시 제품·공정 변경 전에 유효성을 확인해야 하며, 멸균 배치별 매개변수 기록이 각 제조 배치로 추적(7.5.5)되어야 합니다.`
+        ],
+        checkpoints: [
+          `후속 모니터링·측정으로 검증 불가하여 사용/인도 후에야 불일치가 드러나는 공정 조건을 명시함`,
+          `장비 적격성, 인원 자격인정, 통계적 기법(샘플 크기 근거), 재확인 기준 등 절차 요소를 서술함`,
+          `멸균 및 멸균포장 공정(7.5.7)의 실행 전·변경 시 유효성 확인 요건을 포함함`
+        ]
+      },
+      {
+        id: `es4`,
+        num: 4,
+        domain: `ISO 13485:2016`,
+        clause: `8.2.1 피드백 · 8.4 데이터 분석 · 8.5 개선 · 5.6 경영검토`,
+        stem: `ISO 13485:2016에서 시판 후 피드백(8.2.1)과 데이터 분석(8.4)의 결과가 위험관리, 시정조치(8.5.2)·예방조치(8.5.3), 그리고 경영검토(5.6)로 어떻게 연계되는지 품질경영시스템의 선순환 구조 관점에서 설명하시오.`,
+        modelPoints: [
+          `피드백과 위험관리 연계(8.2.1): 생산 및 생산 후 활동에서 수집한 피드백 정보는 제품 요구사항, 제품실현 및 개선 프로세스를 모니터링·유지하기 위한 위험관리의 잠재적 입력으로 사용됩니다.`,
+          `데이터 분석과 CAPA 연계(8.4, 8.5): 피드백, 제품 적합성, 공정·제품 경향, 공급자, 감사, 서비스 보고서 등의 데이터 분석 결과 QMS가 부적합·부적절·비효과적이면 개선(8.5)의 입력이 됩니다. 시정조치(재발 방지) 및 예방조치(발생 방지) 수립 시 규제 요구사항이나 의료기기 안전성·성능에 부정적 영향을 미치지 않음을 반드시 검증해야 합니다.`,
+          `경영검토 환류(5.6.2, 5.6.3): 피드백, 불만처리, 규제당국 보고, 감사, 시정·예방조치 등이 경영검토 입력이 되며, 검토 출력으로 QMS·제품 개선, 신·개정 규제 대응 변경 및 자원 배분이 결정됩니다.`
+        ],
+        checkpoints: [
+          `생산 및 생산 후 피드백(8.2.1)이 위험관리의 잠재적 입력으로 연계됨을 설명함`,
+          `데이터 분석(8.4) 결과에 따른 시정·예방조치(8.5.2/8.5.3) 및 안전성·성능·규제 영향 검증을 서술함`,
+          `경영검토(5.6)의 입력(피드백·불만·CAPA 등)과 출력(개선·규제 대응·자원 결정) 구조를 연결함`
+        ]
+      },
+      {
+        id: `es5`,
+        num: 5,
+        domain: `KGMP 제2025-22호`,
+        clause: `제6조 제4항 · 제8조 제6항/제9항`,
+        stem: `「의료기기 제조 및 품질관리 기준(식약처고시 제2025-22호)」에 따라 ① 기존의 적합인정서를 보유하고 있더라도 '최초심사'를 새로이 받아야 하는 경우(제6조 제4항) 중 3가지 이상을 기술하고, ② 심사 결과가 시정조치 조건부(별표 2 9.4 제2호 가목 2))에 해당할 때의 후속 처리 절차 및 기한(제8조 제6항·제9항)을 설명하시오.`,
+        modelPoints: [
+          `최초심사 재수검 사유(제6조 제4항, 5가지 중 3가지 이상): ① 수출용·1등급·임상시험용 적합인정서 유효기간 만료 후 재취득 시, ② 수출용 제조소에서 국내 판매 목적 제조 시, ③ 제조의뢰자-제조자의 제조의뢰자가 변경·삭제되는 경우, ④ 임상시험용 적합성인정 제조소의 소재지 변경·다른 품목군 임상시험용 추가·판매 목적 제조·수입 시, ⑤ 1등급 적합성인정 제조소에서 2·3·4등급 의료기기 제조·수입 시.`,
+          `시정조치 계획서 평가 기한(제8조 제6항): 심사 종료일로부터 15일 이내에 시정자료 및 시정조치 계획서를 제출받아 적합 여부를 평가하며, 15일 이내 미제출 또는 부적합 시 보완 조치를 진행합니다.`,
+          `조건부 적합인정서 및 이행 기한(제8조 제6항·제9항): 3개월 이내 시정조치 이행을 조건으로 하는 한시적 적합인정서를 발급할 수 있으며, 3개월 이내 이행 결과 미제출 또는 부적합 시 즉시 지방식약청장에게 보고하고 신청인에게 문서 통보합니다(완료 시 제10조 제5항에 따라 적합인정서 교체 신청).`
+        ],
+        checkpoints: [
+          `제6조 제4항의 최초심사 재수검 사유(수출용의 내수 전환, 1등급의 2~4등급 전환, 제조의뢰자 변경·삭제 등) 3가지 이상을 정확히 기술함`,
+          `시정자료 및 시정조치 계획서 제출·평가 기한(심사 종료일로부터 15일 이내)을 명시함`,
+          `3개월 이내 시정조치 이행 조건부 적합인정서 발급 및 미이행 시 지방식약청장 즉시 보고 절차를 설명함`
+        ]
+      }
+    ];
+
+    let appState = {
+      traineeName: ``,
+      traineeDept: ``,
+      traineeDate: `2026-11-16`,
+      mcAnswers: {},
+      mcGraded: false,
+      essayAnswers: {},
+      essayRevealed: {},
+      essayChecks: {},
+      filter: `all`
+    };
+
+    let persistTimer = null;
+
+    function getEl(id) {
+      return document.getElementById(id);
+    }
+
+    function schedulePersist() {
+      if (persistTimer) clearTimeout(persistTimer);
+      persistTimer = setTimeout(function () {
+        saveAppStateNow();
+      }, 150);
+    }
+
+    async function saveAppStateNow() {
+      if (window.notebookAppApi && typeof window.notebookAppApi.setAppState === `function`) {
+        try {
+          await window.notebookAppApi.setAppState(appState);
+        } catch (err) {
+          // Safe fallback if host rejects transient write
+        }
+      }
+    }
+
+    function showBanner(text, variant) {
+      const banner = getEl(`status-banner`);
+      if (!banner) return;
+      banner.className = `inline-notice`;
+      if (variant === `error`) banner.classList.add(`inline-notice--error`);
+      if (variant === `positive`) banner.classList.add(`inline-notice--positive`);
+      banner.textContent = text;
+    }
+
+    function hideBanner() {
+      const banner = getEl(`status-banner`);
+      if (!banner) return;
+      banner.className = `inline-notice is-hidden`;
+      banner.textContent = ``;
+    }
+
+    function handleTraineeChange() {
+      const nameEl = getEl(`trainee-name`);
+      const deptEl = getEl(`trainee-dept`);
+      const dateEl = getEl(`trainee-date`);
+      appState.traineeName = nameEl ? nameEl.value : ``;
+      appState.traineeDept = deptEl ? deptEl.value : ``;
+      appState.traineeDate = dateEl ? dateEl.value : ``;
+      schedulePersist();
+    }
+
+    function selectOption(qId, optionIndex) {
+      appState.mcAnswers[qId] = optionIndex;
+      renderObjectiveQuestions();
+      updateSummaryKPIs();
+      schedulePersist();
+    }
+
+    function handleEssayInput(esId, value) {
+      appState.essayAnswers[esId] = value;
+      const countEl = getEl(`char-count-${esId}`);
+      if (countEl) {
+        countEl.textContent = `글자 수: ${value.length}자`;
+      }
+      const previewEl = getEl(`user-preview-${esId}`);
+      if (previewEl) {
+        previewEl.textContent = value.trim().length > 0 ? value : `(작성된 답안이 없습니다. 위 입력창에 답안을 작성한 뒤 비교해 보십시오.)`;
+      }
+      updateSummaryKPIs();
+      schedulePersist();
+    }
+
+    function toggleEssayCompare(esId) {
+      appState.essayRevealed[esId] = !appState.essayRevealed[esId];
+      renderSubjectiveQuestions();
+      schedulePersist();
+    }
+
+    function toggleCheckpoint(esId, cpIndex) {
+      if (!Array.isArray(appState.essayChecks[esId])) {
+        appState.essayChecks[esId] = [false, false, false];
+      }
+      appState.essayChecks[esId][cpIndex] = !appState.essayChecks[esId][cpIndex];
+      updateSummaryKPIs();
+      schedulePersist();
+    }
+
+    function gradeObjectiveSection() {
+      const answeredCount = Object.keys(appState.mcAnswers).length;
+      if (answeredCount < MC_QUESTIONS.length) {
+        const missingNums = [];
+        for (let i = 0; i < MC_QUESTIONS.length; i++) {
+          if (typeof appState.mcAnswers[MC_QUESTIONS[i].id] !== `number`) {
+            missingNums.push(MC_QUESTIONS[i].num);
+          }
+        }
+        showBanner(
+          `미응답 문항이 ${MC_QUESTIONS.length - answeredCount}개 있습니다 (문항 ${missingNums.join(`, `)}번). 모든 객관식 문항을 선택한 뒤 다시 채점해 주십시오.`,
+          `error`
+        );
+        const firstMissingId = `mc-card-mc${missingNums[0]}`;
+        const firstMissingEl = getEl(firstMissingId);
+        if (firstMissingEl) {
+          firstMissingEl.scrollIntoView({ behavior: `smooth`, block: `center` });
+        }
+        return;
+      }
+
+      appState.mcGraded = true;
+      renderObjectiveQuestions();
+      renderBreakdownTable();
+      updateSummaryKPIs();
+      saveAppStateNow();
+
+      let correctCount = 0;
+      for (let i = 0; i < MC_QUESTIONS.length; i++) {
+        if (appState.mcAnswers[MC_QUESTIONS[i].id] === MC_QUESTIONS[i].answerIndex) {
+          correctCount++;
+        }
+      }
+      const score = correctCount * 10;
+      if (score >= 80) {
+        showBanner(
+          `객관식 자동 채점이 완료되었습니다. 총점 ${score}점(${correctCount}/10문항 정답)으로 권고 합격 기준(80점 이상)을 충족하였습니다.`,
+          `positive`
+        );
+      } else {
+        showBanner(
+          `객관식 자동 채점이 완료되었습니다. 총점 ${score}점(${correctCount}/10문항 정답)입니다. 오답 문항의 상세 조항 해설을 확인하시기 바랍니다.`,
+          `error`
+        );
+      }
+    }
+
+    function setFilter(mode) {
+      if (mode === `wrong` && !appState.mcGraded) {
+        showBanner(`‘오답만 보기’는 객관식 자동 채점 실행 후 이용할 수 있습니다.`, `error`);
+        return;
+      }
+      hideBanner();
+      appState.filter = mode;
+      const btnIds = [`filter-all`, `filter-mc`, `filter-essay`, `filter-wrong`];
+      const modes = [`all`, `mc`, `essay`, `wrong`];
+      for (let i = 0; i < btnIds.length; i++) {
+        const btn = getEl(btnIds[i]);
+        if (btn) {
+          btn.setAttribute(`aria-pressed`, modes[i] === mode ? `true` : `false`);
+        }
+      }
+      applyFilterVisibility();
+      schedulePersist();
+    }
+
+    function applyFilterVisibility() {
+      const mcSection = getEl(`mc-section`);
+      const essaySection = getEl(`essay-section`);
+      const breakdownSection = getEl(`breakdown-section`);
+      const mode = appState.filter;
+
+      if (mcSection) {
+        if (mode === `essay`) mcSection.classList.add(`is-hidden`);
+        else mcSection.classList.remove(`is-hidden`);
+      }
+      if (essaySection) {
+        if (mode === `mc` || mode === `wrong`) essaySection.classList.add(`is-hidden`);
+        else essaySection.classList.remove(`is-hidden`);
+      }
+      if (breakdownSection) {
+        if (appState.mcGraded && mode !== `essay`) breakdownSection.classList.remove(`is-hidden`);
+        else breakdownSection.classList.add(`is-hidden`);
+      }
+
+      for (let i = 0; i < MC_QUESTIONS.length; i++) {
+        const q = MC_QUESTIONS[i];
+        const card = getEl(`mc-card-${q.id}`);
+        if (!card) continue;
+        if (mode === `wrong` && appState.mcGraded) {
+          const isCorrect = appState.mcAnswers[q.id] === q.answerIndex;
+          if (isCorrect) card.classList.add(`is-hidden`);
+          else card.classList.remove(`is-hidden`);
+        } else {
+          card.classList.remove(`is-hidden`);
+        }
+      }
+    }
+
+    function renderObjectiveQuestions() {
+      const container = getEl(`mc-list`);
+      if (!container) return;
+
+      let html = ``;
+      const optionNums = [`①`, `②`, `③`, `④`];
+
+      for (let i = 0; i < MC_QUESTIONS.length; i++) {
+        const q = MC_QUESTIONS[i];
+        const userAns = appState.mcAnswers[q.id];
+        const hasAnswered = typeof userAns === `number`;
+        const isCorrect = appState.mcGraded && userAns === q.answerIndex;
+        const isWrong = appState.mcGraded && userAns !== q.answerIndex;
+
+        let statusBadge = ``;
+        if (appState.mcGraded) {
+          if (isCorrect) {
+            statusBadge = `<span class="status-tag status-tag--positive">정답 (+10점)</span>`;
+          } else {
+            statusBadge = `<span class="status-tag status-tag--error">오답 (정답: ${optionNums[q.answerIndex]})</span>`;
+          }
+        }
+
+        let optionsHtml = ``;
+        for (let j = 0; j < q.options.length; j++) {
+          const checkedAttr = userAns === j ? `checked` : ``;
+          let labelCls = `option-label`;
+          if (appState.mcGraded) {
+            if (j === q.answerIndex) labelCls += ` is-correct`;
+            else if (userAns === j && j !== q.answerIndex) labelCls += ` is-wrong`;
+          } else if (userAns === j) {
+            labelCls += ` is-selected`;
+          }
+
+          optionsHtml += `
+            <li>
+              <label class="${labelCls}">
+                <input
+                  class="option-radio"
+                  type="radio"
+                  name="q-${q.id}"
+                  value="${j}"
+                  ${checkedAttr}
+                  onchange="selectOption('${q.id}', ${j})"
+                >
+                <span class="option-text"><span class="option-num">${optionNums[j]}</span>${q.options[j]}</span>
+              </label>
+            </li>
+          `;
+        }
+
+        let explanationHtml = ``;
+        if (appState.mcGraded) {
+          const boxCls = isCorrect ? `explanation-box explanation-box--correct` : `explanation-box explanation-box--wrong`;
+          const titleCls = isCorrect ? `explanation-title explanation-title--correct` : `explanation-title explanation-title--wrong`;
+          const titleText = isCorrect
+            ? `정답 해설 (${q.domain} · ${q.clause})`
+            : `오답 해설 — 정답은 ${optionNums[q.answerIndex]}번입니다 (${q.domain} · ${q.clause})`;
+          explanationHtml = `
+            <div class="${boxCls}">
+              <div class="${titleCls}">${titleText}</div>
+              <div>${q.explanation}</div>
+            </div>
+          `;
+        }
+
+        html += `
+          <article class="question-card" id="mc-card-${q.id}">
+            <div class="question-header">
+              <span class="step-badge">${String(q.num).padStart(2, `0`)}</span>
+              <span class="status-tag">${q.domain}</span>
+              <span class="meta-note">${q.clause}</span>
+              ${statusBadge}
+            </div>
+            <p class="question-stem">${q.stem}</p>
+            <ul class="options-list">
+              ${optionsHtml}
+            </ul>
+            ${explanationHtml}
+          </article>
+        `;
+      }
+
+      container.innerHTML = html;
+      applyFilterVisibility();
+    }
+
+    function renderSubjectiveQuestions() {
+      const container = getEl(`essay-list`);
+      if (!container) return;
+
+      let html = ``;
+      for (let i = 0; i < ESSAY_QUESTIONS.length; i++) {
+        const es = ESSAY_QUESTIONS[i];
+        const currentText = appState.essayAnswers[es.id] || ``;
+        const isRevealed = Boolean(appState.essayRevealed[es.id]);
+        const checks = Array.isArray(appState.essayChecks[es.id]) ? appState.essayChecks[es.id] : [false, false, false];
+
+        let pointsHtml = ``;
+        for (let p = 0; p < es.modelPoints.length; p++) {
+          pointsHtml += `<li>${es.modelPoints[p]}</li>`;
+        }
+
+        let checksHtml = ``;
+        for (let c = 0; c < es.checkpoints.length; c++) {
+          const checkedAttr = checks[c] ? `checked` : ``;
+          checksHtml += `
+            <label class="check-label">
+              <input
+                class="check-input"
+                type="checkbox"
+                ${checkedAttr}
+                onchange="toggleCheckpoint('${es.id}', ${c})"
+              >
+              <span>${es.checkpoints[c]}</span>
+            </label>
+          `;
+        }
+
+        const btnText = isRevealed ? `모범 답안 비교 닫기` : `모범 답안 및 채점 기준 비교하기`;
+        const previewText = currentText.trim().length > 0
+          ? currentText
+          : `(작성된 답안이 없습니다. 위 입력창에 답안을 작성한 뒤 비교해 보십시오.)`;
+
+        const compareHtml = isRevealed ? `
+          <div class="compare-grid">
+            <div class="compare-panel compare-panel--user">
+              <h4>내가 작성한 답안</h4>
+              <p class="compare-user-text" id="user-preview-${es.id}">${escapeHtml(previewText)}</p>
+            </div>
+            <div class="compare-panel">
+              <h4>모범 답안 (${es.domain} · ${es.clause})</h4>
+              <ol class="model-answer-list">
+                ${pointsHtml}
+              </ol>
+            </div>
+          </div>
+          <div class="checkpoint-box">
+            <h3>핵심 채점 포인트 자가점검</h3>
+            ${checksHtml}
+          </div>
+        ` : ``;
+
+        html += `
+          <article class="question-card" id="es-card-${es.id}">
+            <div class="question-header">
+              <span class="step-badge">주${es.num}</span>
+              <span class="status-tag">${es.domain}</span>
+              <span class="meta-note">${es.clause}</span>
+            </div>
+            <p class="question-stem">${es.stem}</p>
+            <div class="essay-wrapper">
+              <div class="field-group">
+                <label class="field-label" for="textarea-${es.id}">답안 작성</label>
+                <textarea
+                  class="text-area"
+                  id="textarea-${es.id}"
+                  oninput="handleEssayInput('${es.id}', this.value)"
+                  placeholder="관련 규격 조항 또는 고시 조문과 핵심 요건을 근거로 서술하십시오."
+                >${escapeHtml(currentText)}</textarea>
+              </div>
+              <div class="essay-controls">
+                <span class="meta-note" id="char-count-${es.id}">글자 수: ${currentText.length}자</span>
+                <button type="button" class="button button--secondary" onclick="toggleEssayCompare('${es.id}')">${btnText}</button>
+              </div>
+              ${compareHtml}
+            </div>
+          </article>
+        `;
+      }
+
+      container.innerHTML = html;
+    }
+
+    function renderBreakdownTable() {
+      const section = getEl(`breakdown-section`);
+      const tbody = getEl(`breakdown-tbody`);
+      if (!section || !tbody) return;
+
+      if (!appState.mcGraded) {
+        section.classList.add(`is-hidden`);
+        return;
+      }
+
+      const domains = [`ISO 13485:2016`, `KGMP 제2025-22호`];
+      let rowsHtml = ``;
+      let totalQ = 0;
+      let totalCorrect = 0;
+
+      for (let d = 0; d < domains.length; d++) {
+        const name = domains[d];
+        let qCount = 0;
+        let cCount = 0;
+        for (let i = 0; i < MC_QUESTIONS.length; i++) {
+          if (MC_QUESTIONS[i].domain === name) {
+            qCount++;
+            if (appState.mcAnswers[MC_QUESTIONS[i].id] === MC_QUESTIONS[i].answerIndex) {
+              cCount++;
+            }
+          }
+        }
+        totalQ += qCount;
+        totalCorrect += cCount;
+        const pct = qCount > 0 ? Math.round((cCount / qCount) * 100) : 0;
+        const verdict = pct >= 80 ? `충족 (80% 이상)` : `보충 학습 필요`;
+
+        rowsHtml += `
+          <tr>
+            <td><strong>${name}</strong></td>
+            <td class="num">${qCount}문항</td>
+            <td class="num">${cCount}문항</td>
+            <td class="num">${pct}%</td>
+            <td>${verdict}</td>
+          </tr>
+        `;
+      }
+
+      const totalPct = totalQ > 0 ? Math.round((totalCorrect / totalQ) * 100) : 0;
+      const totalVerdict = totalPct >= 80 ? `합격 기준 충족` : `재학습 권장`;
+      rowsHtml += `
+        <tr>
+          <td><strong>합계 (전체 객관식)</strong></td>
+          <td class="num"><strong>${totalQ}문항</strong></td>
+          <td class="num"><strong>${totalCorrect}문항</strong></td>
+          <td class="num"><strong>${totalPct}%</strong></td>
+          <td><strong>${totalVerdict}</strong></td>
+        </tr>
+      `;
+
+      tbody.innerHTML = rowsHtml;
+      applyFilterVisibility();
+    }
+
+    function updateSummaryKPIs() {
+      const mcAnswered = Object.keys(appState.mcAnswers).length;
+      let essayWritten = 0;
+      for (let i = 0; i < ESSAY_QUESTIONS.length; i++) {
+        const txt = appState.essayAnswers[ESSAY_QUESTIONS[i].id] || ``;
+        if (txt.trim().length > 0) essayWritten++;
+      }
+
+      const totalDone = mcAnswered + essayWritten;
+      const kpiProgress = getEl(`kpi-progress`);
+      const kpiProgressDetail = getEl(`kpi-progress-detail`);
+      if (kpiProgress) kpiProgress.textContent = `${totalDone} / 15`;
+      if (kpiProgressDetail) kpiProgressDetail.textContent = `객관식 ${mcAnswered}/10 · 주관식 ${essayWritten}/5 작성`;
+
+      const mcStatusTag = getEl(`mc-section-status`);
+      if (mcStatusTag) mcStatusTag.textContent = `응답 완료: ${mcAnswered} / 10`;
+
+      const essayStatusTag = getEl(`essay-section-status`);
+      if (essayStatusTag) essayStatusTag.textContent = `작성 완료: ${essayWritten} / 5`;
+
+      const scoreCard = getEl(`kpi-score-card`);
+      const kpiMcScore = getEl(`kpi-mc-score`);
+      const kpiMcDetail = getEl(`kpi-mc-detail`);
+
+      if (appState.mcGraded) {
+        let correctCount = 0;
+        for (let i = 0; i < MC_QUESTIONS.length; i++) {
+          if (appState.mcAnswers[MC_QUESTIONS[i].id] === MC_QUESTIONS[i].answerIndex) {
+            correctCount++;
+          }
+        }
+        const score = correctCount * 10;
+        if (kpiMcScore) kpiMcScore.textContent = `${score}점 (${correctCount}/10)`;
+        if (kpiMcDetail) {
+          kpiMcDetail.textContent = score >= 80
+            ? `권고 합격 기준(80점 이상) 충족`
+            : `권고 합격 기준(80점 이상) 미달 — 오답 해설 확인`;
+        }
+        if (scoreCard) {
+          scoreCard.className = score >= 80 ? `inset inset--positive` : `inset inset--error`;
+        }
+      } else {
+        if (kpiMcScore) kpiMcScore.textContent = `미채점`;
+        if (kpiMcDetail) kpiMcDetail.textContent = `10문항 선택 후 자동 채점을 실행하세요.`;
+        if (scoreCard) scoreCard.className = `inset`;
+      }
+
+      let checkedTotal = 0;
+      const maxCheckpoints = ESSAY_QUESTIONS.length * 3;
+      for (let i = 0; i < ESSAY_QUESTIONS.length; i++) {
+        const arr = appState.essayChecks[ESSAY_QUESTIONS[i].id];
+        if (Array.isArray(arr)) {
+          for (let k = 0; k < arr.length; k++) {
+            if (arr[k]) checkedTotal++;
+          }
+        }
+      }
+      const kpiEssayCheck = getEl(`kpi-essay-check`);
+      const kpiEssayDetail = getEl(`kpi-essay-detail`);
+      if (kpiEssayCheck) kpiEssayCheck.textContent = `${checkedTotal} / ${maxCheckpoints}`;
+      if (kpiEssayDetail) {
+        const checkPct = Math.round((checkedTotal / maxCheckpoints) * 100);
+        kpiEssayDetail.textContent = `자가점검 충족률 ${checkPct}%`;
+      }
+    }
+
+    function escapeHtml(str) {
+      return String(str)
+        .replace(/&/g, `&amp;`)
+        .replace(/</g, `&lt;`)
+        .replace(/>/g, `&gt;`)
+        .replace(/"/g, `&quot;`)
+        .replace(/'/g, `&#39;`);
+    }
+
+    function resetAssessment(btn) {
+      if (btn && btn.dataset.armed !== `true`) {
+        btn.dataset.armed = `true`;
+        btn.textContent = `한 번 더 클릭하면 초기화됩니다`;
+        setTimeout(function () {
+          if (btn && btn.dataset.armed === `true`) {
+            btn.dataset.armed = `false`;
+            btn.textContent = `평가 초기화`;
+          }
+        }, 4000);
+        return;
+      }
+      if (btn) {
+        btn.dataset.armed = `false`;
+        btn.textContent = `평가 초기화`;
+      }
+
+      appState = {
+        traineeName: appState.traineeName,
+        traineeDept: appState.traineeDept,
+        traineeDate: appState.traineeDate,
+        mcAnswers: {},
+        mcGraded: false,
+        essayAnswers: {},
+        essayRevealed: {},
+        essayChecks: {},
+        filter: `all`
+      };
+
+      setFilter(`all`);
+      renderObjectiveQuestions();
+      renderSubjectiveQuestions();
+      renderBreakdownTable();
+      updateSummaryKPIs();
+      saveAppStateNow();
+      showBanner(`모든 객관식 응답, 채점 결과 및 주관식 작성 내용이 초기화되었습니다.`, `positive`);
+    }
+
+    function exportReport() {
+      const name = appState.traineeName.trim() || `미입력`;
+      const dept = appState.traineeDept.trim() || `미입력`;
+      const evalDate = appState.traineeDate || `2026-11-16`;
+      const optionNums = [`①`, `②`, `③`, `④`];
+
+      const lines = [];
+      lines.push(`================================================================`);
+      lines.push(`KGMP 및 ISO 13485:2016 규격 교육 효과성 평가 결과 리포트`);
+      lines.push(`================================================================`);
+      lines.push(`응시자 성명: ${name}`);
+      lines.push(`소속 / 부서: ${dept}`);
+      lines.push(`평가 일자: ${evalDate}`);
+      lines.push(``);
+
+      lines.push(`[제1부. 객관식 평가 결과]`);
+      if (appState.mcGraded) {
+        let correctCount = 0;
+        for (let i = 0; i < MC_QUESTIONS.length; i++) {
+          if (appState.mcAnswers[MC_QUESTIONS[i].id] === MC_QUESTIONS[i].answerIndex) correctCount++;
+        }
+        lines.push(`총점: ${correctCount * 10}점 / 100점 (${correctCount}/10문항 정답)`);
+      } else {
+        lines.push(`채점 상태: 미채점`);
+      }
+      lines.push(``);
+
+      for (let i = 0; i < MC_QUESTIONS.length; i++) {
+        const q = MC_QUESTIONS[i];
+        const sel = appState.mcAnswers[q.id];
+        const selStr = typeof sel === `number` ? optionNums[sel] : `미응답`;
+        const ansStr = optionNums[q.answerIndex];
+        const judge = appState.mcGraded ? (sel === q.answerIndex ? `정답` : `오답`) : `미채점`;
+        lines.push(`${q.num}번 [${q.domain} · ${q.clause}] | 선택: ${selStr} | 정답: ${ansStr} | 판정: ${judge}`);
+      }
+
+      lines.push(``);
+      lines.push(`[제2부. 주관식 평가 작성 답안 및 자가점검]`);
+      for (let i = 0; i < ESSAY_QUESTIONS.length; i++) {
+        const es = ESSAY_QUESTIONS[i];
+        const ans = (appState.essayAnswers[es.id] || ``).trim() || `(작성 내용 없음)`;
+        const checks = Array.isArray(appState.essayChecks[es.id]) ? appState.essayChecks[es.id] : [false, false, false];
+        let chkCount = 0;
+        for (let k = 0; k < checks.length; k++) {
+          if (checks[k]) chkCount++;
+        }
+        lines.push(`----------------------------------------------------------------`);
+        lines.push(`주관식 ${es.num}번 [${es.domain} · ${es.clause}]`);
+        lines.push(`질문: ${es.stem}`);
+        lines.push(`작성 답안:\n${ans}`);
+        lines.push(`핵심 채점 포인트 자가점검: ${chkCount} / ${es.checkpoints.length} 항목 충족`);
+      }
+
+      const content = lines.join(`\n`);
+      const safeName = (appState.traineeName.trim() || `trainee`).replace(/[^a-zA-Z0-9가-힣_-]/g, `_`);
+      const filename = `KGMP_ISO13485_평가결과_${safeName}_${evalDate}.txt`;
+
+      if (window.notebookAppApi && typeof window.notebookAppApi.triggerFileDownload === `function`) {
+        window.notebookAppApi.triggerFileDownload({
+          content: content,
+          contentType: `text/plain`,
+          encoding: `UTF-8`,
+          filename: filename
+        });
+        showBanner(`평가 결과 리포트(${filename}) 다운로드를 시작했습니다.`, `positive`);
+      } else {
+        const blob = new Blob([content], { type: `text/plain;charset=utf-8` });
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement(`a`);
+        a.href = url;
+        a.download = filename;
+        document.body.appendChild(a);
+        a.click();
+        document.body.removeChild(a);
+        URL.revokeObjectURL(url);
+        showBanner(`평가 결과 리포트(${filename}) 다운로드를 시작했습니다.`, `positive`);
+      }
+    }
+
+    function restoreTraineeInputs() {
+      const nameEl = getEl(`trainee-name`);
+      const deptEl = getEl(`trainee-dept`);
+      const dateEl = getEl(`trainee-date`);
+      if (nameEl) nameEl.value = appState.traineeName || ``;
+      if (deptEl) deptEl.value = appState.traineeDept || ``;
+      if (dateEl) dateEl.value = appState.traineeDate || `2026-11-16`;
+    }
+
+    async function initApp() {
+      if (window.notebookAppApi && typeof window.notebookAppApi.getAppState === `function`) {
+        try {
+          const saved = await window.notebookAppApi.getAppState();
+          if (saved && typeof saved === `object`) {
+            appState = {
+              traineeName: typeof saved.traineeName === `string` ? saved.traineeName : ``,
+              traineeDept: typeof saved.traineeDept === `string` ? saved.traineeDept : ``,
+              traineeDate: typeof saved.traineeDate === `string` ? saved.traineeDate : `2026-11-16`,
+              mcAnswers: saved.mcAnswers && typeof saved.mcAnswers === `object` ? saved.mcAnswers : {},
+              mcGraded: Boolean(saved.mcGraded),
+              essayAnswers: saved.essayAnswers && typeof saved.essayAnswers === `object` ? saved.essayAnswers : {},
+              essayRevealed: saved.essayRevealed && typeof saved.essayRevealed === `object` ? saved.essayRevealed : {},
+              essayChecks: saved.essayChecks && typeof saved.essayChecks === `object` ? saved.essayChecks : {},
+              filter: typeof saved.filter === `string` ? saved.filter : `all`
+            };
+          }
+        } catch (err) {
+          // Proceed with fresh state
+        }
+      }
+
+      restoreTraineeInputs();
+      renderObjectiveQuestions();
+      renderSubjectiveQuestions();
+      renderBreakdownTable();
+      updateSummaryKPIs();
+
+      if (appState.filter && appState.filter !== `all`) {
+        setFilter(appState.filter);
+      } else {
+        applyFilterVisibility();
+      }
+
+      if (window.notebookAppApi && typeof window.notebookAppApi.notifyAppReady === `function`) {
+        window.notebookAppApi.notifyAppReady();
+      }
+    }
+
+    initApp();
+  </script>
+</body>
+</html>
